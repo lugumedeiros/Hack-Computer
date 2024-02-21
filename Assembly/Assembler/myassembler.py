@@ -1,5 +1,3 @@
-#Problem at M-1
-
 import re
 
 rpl_dest = {
