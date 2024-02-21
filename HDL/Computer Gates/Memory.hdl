@@ -1,0 +1,22 @@
+//I got very lost in this one, my main problem was the idea of the load
+//Maybe I got lost because of not creating everything from zero, like I commented
+//in another project, or maybe it was because of the style of this machine.
+//One for sure is, I'm too green yet. 
+//CPU Lab (Tea Leaves) series was a helper in this last project, it helped
+//make it clear for me!
+
+
+CHIP Memory {
+    IN in[16], load, address[15];
+    OUT out[16];
+
+    PARTS:
+    DMux (in=load, sel=address[14], a=ramIN, b=screenORkbd);
+    DMux (in=screenORkbd, sel=address[13], a=screenIN, b=kbdIN);
+
+    RAM16K      (in=in ,load=ramIN, address=address[0..13] ,out=ramOUT);
+    Screen      (in=in ,load=screenIN ,address=address[0..12] , out= screenOUT);
+    Keyboard    (out=kbdOUT);
+
+    Mux4Way16   (a=ramOUT, b=ramOUT, c=screenOUT, d=kbdOUT, sel=address[13..14], out=out);
+}
